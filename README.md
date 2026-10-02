@@ -1,5 +1,7 @@
 # Simulation and post-processing code for 'Pseudo-Random Switching of Cell Groups for On-Board Impedance Identification in Self-Reconfigurable Batteries'
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23111635.svg)](https://doi.org/10.5281/zenodo.23111635)
+
 Code accompanying the paper "Pseudo-Random Switching of Cell Groups for
 On-Board Impedance Identification in Self-Reconfigurable Batteries"
 (A. Škegro, A. Laurin, V. Heiries, R. Thomas, C. Zou), submitted to the
@@ -107,8 +109,12 @@ Software:
 ```
 A. Škegro, "Simulation and post-processing code for 'Pseudo-Random Switching
 of Cell Groups for On-Board Impedance Identification in Self-Reconfigurable
-Batteries'," version 1.0.0, Zenodo, 2026.
+Batteries'," Zenodo, 2026.
+https://doi.org/10.5281/zenodo.23111635
 ```
+
+This DOI covers all versions and resolves to the latest one; version 1.0.0
+is https://doi.org/10.5281/zenodo.23111636.
 
 Machine-readable metadata: [`CITATION.cff`](CITATION.cff).
 

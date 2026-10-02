@@ -149,11 +149,15 @@ def main(argv):
         fr = lambda name, d: row(name, f"{d['r_pulse_mohm']:.3f}", d)
         t = '\\begin{tabular}{@{}lcccc@{}}\n\\hline\nMethod & $R_{10}$ & \\multicolumn{3}{c}{Voltage error (mV)}\\\\\n & (m$\\Omega$) & 20\\,A & WLTC & 2C\\\\\n\\hline\n'
         t += fr('Pseudo-EIS, $M{=}14$', f['proposed_dense']) + fr('Pseudo-EIS, $M{=}6$', f['proposed'])
+        t += '\\hline\n'
         t += fr('Unweighted NNLS, $M{=}14$', f['unweighted_dense']) + fr('Unweighted NNLS, $M{=}6$', f['unweighted'])
         t += fr('Nonlinear routine, $M{=}6$', f['nlls_fixed_tau'])
         t += f"Nonlinear, free $\\tau$ & {rg(free['r_pulse_mohm'], '%.3f')} & {rg([x['pulse_load'] for x in vm], '%.2f')} & {rg([x['wltc'] for x in vm], '%.2f')} & {rg([x['pulse_two_c'] for x in vm], '%.1f')}\\\\\n"
+        t += '\\hline\n'
         t += fr('Reference EIS fit, $M{=}14$', f['eis_reference_dense']) + fr('Reference EIS fit, $M{=}6$', f['eis_reference'])
+        t += '\\hline\n'
         t += fr('Pulse test, $M{=}14$', f['pulse_test_dense']) + fr('Pulse test, $M{=}6$', f['pulse_test'])
+        t += '\\hline\n'
         t += row('RLS, 1 RC$^{\\dagger}$', '--', X['rls_order_1']) + row('RLS, 2 RC$^{\\dagger}$', '--', X['rls_order_2'])
         t += fr('Batch fit, $M{=}14^{\\dagger}$', X['batch_fit_dense']) + fr('Batch fit, $M{=}6^{\\dagger}$', X['batch_fit'])
         (out / 'tables' / 'baselines_paper.tex').write_text(t + '\\hline\n\\end{tabular}\n')

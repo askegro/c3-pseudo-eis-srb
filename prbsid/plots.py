@@ -12,6 +12,41 @@ BLUE, ORANGE, VIOLET, INK, MUTED = ('#2a78d6', '#eb6834', '#4a3aa7', '#0b0b0b', 
 plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif'], 'mathtext.fontset': 'stix', 'font.size': 8, 'axes.labelsize': 8, 'legend.fontsize': 7, 'xtick.labelsize': 7, 'ytick.labelsize': 7, 'axes.linewidth': 0.6, 'lines.linewidth': 1.2, 'lines.markersize': 3.5, 'axes.grid': True, 'grid.color': '#d9d8d4', 'grid.linewidth': 0.4, 'axes.spines.top': False, 'axes.spines.right': False, 'legend.frameon': False, 'pdf.fonttype': 42, 'savefig.bbox': 'tight', 'savefig.pad_inches': 0.02, 'axes.edgecolor': MUTED, 'xtick.color': MUTED, 'ytick.color': MUTED, 'axes.labelcolor': INK, 'text.color': INK})
 W = 3.3
 
+def _ymax(ax):
+    return np.nanmax([y for ln in ax.get_lines() for y in np.asarray(ln.get_ydata(), float)])
+
+def _ymin(ax):
+    return np.nanmin([y for ln in ax.get_lines() for y in np.asarray(ln.get_ydata(), float)])
+
+def top_tick(ax):
+    """Extend a linear y axis so that it ends on a labelled tick."""
+    lo, hi = ax.get_ylim()
+    t = ax.get_yticks()
+    step = t[1] - t[0]
+    first = t[t >= lo - 1e-9 * step][0]
+    top = first + np.ceil((hi - first) / step - 1e-6) * step
+    ax.set_yticks(np.arange(first, top + step / 2, step))
+    ax.set_ylim(lo, top)
+
+def plain_log_y(ax):
+    """Log y axis with ticks at 1-2-5 values and plain labels, ending on a labelled tick."""
+    lo, _ = ax.get_ylim()
+    c = np.array([m * 10.0 ** k for k in range(-6, 7) for m in (1, 2, 5)])
+    top = c[c >= _ymax(ax) * (1 - 1e-9)][0]
+    if top / lo < 5:
+        c = np.array([m * 10.0 ** k for k in range(-6, 7) for m in (1, 1.5, 2, 3, 4, 6, 8)])
+        lo = c[c <= _ymin(ax) * (1 + 1e-9)][-1]
+    ticks = c[(c >= lo * (1 - 1e-9)) & (c <= top * (1 + 1e-9))]
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{v:g}' for v in ticks])
+    ax.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_ylim(lo, top)
+
+def decade_top_y(ax):
+    """Log y axis over several decades: end on a labelled decade tick."""
+    lo, _ = ax.get_ylim()
+    ax.set_ylim(lo, 10.0 ** np.ceil(np.log10(_ymax(ax)) - 1e-9))
+
 def load(tasks_dir, tasks):
     R = {}
     for t in tasks:
@@ -32,18 +67,18 @@ def fig_noise(r, cfg, out):
     names = [b['name'] for b in cfg['bands']]
     cols = [BLUE, ORANGE, VIOLET]
     mk = ['o', 's', '^']
-    fig, ax = plt.subplots(1, 2, figsize=(7.1, 1.9), gridspec_kw=dict(wspace=0.28))
+    fig, ax = plt.subplots(1, 2, figsize=(7.1, 1.9), gridspec_kw=dict(wspace=0.42))
     fd = np.logspace(np.log10(z['f'].min()), np.log10(z['f'].max()), 400)
     o = np.argsort(z['f'])
-    ax[0].plot(1000.0 * z['zref'].real[o], -1000.0 * z['zref'].imag[o], color=MUTED, lw=1.6, label='reference EIS')
+    ax[0].plot(1000.0 * z['zref'].real[o], -1000.0 * z['zref'].imag[o], color=MUTED, lw=1.6, label='Reference EIS')
     for k, nme in enumerate(names):
         sel = np.flatnonzero(z['band'] == k)
         sel = sel[thin(sel.size, 28)]
-        ax[0].errorbar(1000.0 * z['z'].real[sel], -1000.0 * z['z'].imag[sel], xerr=2000.0 * z['sigma'][sel], yerr=2000.0 * z['sigma'][sel], fmt=mk[k], color=cols[k], ms=3, mec='white', mew=0.4, elinewidth=0.5, label='estimate, ' + (f"{cfg['bands'][k]['fc'] / 1000.0:g} kHz" if cfg['bands'][k]['fc'] >= 1000.0 else f"{cfg['bands'][k]['fc']:g} Hz") + ' clock')
+        ax[0].errorbar(1000.0 * z['z'].real[sel], -1000.0 * z['z'].imag[sel], xerr=2000.0 * z['sigma'][sel], yerr=2000.0 * z['sigma'][sel], fmt=mk[k], color=cols[k], ms=3, mec='white', mew=0.4, elinewidth=0.5, label='Estimate, ' + (f"{cfg['bands'][k]['fc'] / 1000.0:g} kHz" if cfg['bands'][k]['fc'] >= 1000.0 else f"{cfg['bands'][k]['fc']:g} Hz") + ' clock')
     zm = ft.model_impedance(z['theta_dense'], 2 * np.pi * fd, np.asarray(cfg['fit']['taus_dense_s']))
-    ax[0].plot(1000.0 * zm.real, -1000.0 * zm.imag, color=INK, lw=0.9, ls='--', label='fit (19), half-decade grid')
+    ax[0].plot(1000.0 * zm.real, -1000.0 * zm.imag, color=INK, lw=0.9, ls='--', label='Fit (19), half-decade grid')
     zm = ft.model_impedance(z['theta'], 2 * np.pi * fd, taus)
-    ax[0].plot(1000.0 * zm.real, -1000.0 * zm.imag, color=INK, lw=0.7, ls=':', label='fit (19), decade grid')
+    ax[0].plot(1000.0 * zm.real, -1000.0 * zm.imag, color=INK, lw=0.7, ls=':', label='Fit (19), decade grid')
     ax[0].set_xlabel('Re $Z$ (m$\\Omega$)')
     ax[0].set_ylabel('$-$Im $Z$ (m$\\Omega$)')
     ax[0].legend(loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=2, handlelength=1.6, columnspacing=0.9, borderaxespad=0.2)
@@ -51,31 +86,35 @@ def fig_noise(r, cfg, out):
         for k, nme in enumerate(names):
             sel = np.flatnonzero(z['band'] == k)
             sub = sel[thin(sel.size, 22)]
-            ax[1].loglog(z['f'][sel], 1000000.0 * z['mc_emp_sd'][sel], color=cols[k], lw=1.0, label='empirical' if k == 0 else None)
-            ax[1].loglog(z['f'][sub], 1000000.0 * z['mc_pred_sd'][sub], mk[k], color=cols[k], ms=3, mec='white', mew=0.4, label='predicted (16)' if k == 0 else None)
+            ax[1].loglog(z['f'][sel], 1000000.0 * z['mc_emp_sd'][sel], color=cols[k], lw=1.0)
+            ax[1].loglog(z['f'][sub], 1000000.0 * z['mc_pred_sd'][sub], mk[k], color=cols[k], ms=3, mec='white', mew=0.4)
         ax[1].set_xlabel('Frequency (Hz)')
         ax[1].set_ylabel('Std. dev. of Re $\\hat Z$, Im $\\hat Z$ ($\\mu\\Omega$)')
-        ax[1].legend(loc='best')
+        from matplotlib.lines import Line2D
+        ax[1].legend(handles=[Line2D([], [], color=MUTED, lw=1.0, label='Empirical'), Line2D([], [], ls='none', marker='o', color=MUTED, ms=3, mec='white', mew=0.4, label='Predicted (16)')], loc='best')
+        plain_log_y(ax[1])
     else:
         ax[1].set_visible(False)
+    top_tick(ax[0])
     fig.savefig(out / 'fig_noise.pdf')
     plt.close(fig)
 
 def fig_maps(R, tasks, cfg, out):
     temps = cfg['grid']['temp_c']
-    fig, ax = plt.subplots(1, len(temps), figsize=(W, 1.7), sharex=True, gridspec_kw=dict(wspace=0.62))
+    fig, ax = plt.subplots(1, len(temps), figsize=(3.9, 1.7), sharex=True, gridspec_kw=dict(wspace=0.85))
     for a, T in zip(np.atleast_1d(ax), temps):
         rs = sorted([R[t['name']] for t in tasks if t['group'] == 'map' and t['temp_c'] == T and (t['name'] in R)], key=lambda r: r['task']['soc'])
         if not rs:
             continue
         soc = np.array([100 * r['task']['soc'] for r in rs])
         g = lambda k, q='r_pulse': 1000.0 * np.array([r['fits'][k][q] for r in rs])
-        a.plot(soc, g('eis_reference_dense'), color=MUTED, lw=1.6, label='reference EIS')
-        a.errorbar(soc, g('proposed_dense'), yerr=2 * g('proposed_dense', 'r_pulse_sd'), fmt='o', color=BLUE, ms=3, mec='white', mew=0.4, elinewidth=0.6, label='proposed')
-        a.plot(soc, g('pulse_test_dense'), 's', color=ORANGE, ms=3, mec='white', mew=0.4, label='pulse test')
+        a.plot(soc, g('eis_reference_dense'), color=MUTED, lw=1.6, label='Reference EIS')
+        a.errorbar(soc, g('proposed_dense'), yerr=2 * g('proposed_dense', 'r_pulse_sd'), fmt='o', color=BLUE, ms=3, mec='white', mew=0.4, elinewidth=0.6, label='Pseudo-EIS')
+        a.plot(soc, g('pulse_test_dense'), 's', color=ORANGE, ms=3, mec='white', mew=0.4, label='Pulse test')
         a.set_title(f'{T:g} °C', fontsize=8, pad=3)
         a.set_xlabel('SOC (%)')
-        a.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(4))
+        a.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(5))
+        top_tick(a)
     np.atleast_1d(ax)[0].set_ylabel('$R_{10}$ (m$\\Omega$)')
     h, l = np.atleast_1d(ax)[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=3, bbox_to_anchor=(0.5, 1.12), handlelength=1.4, columnspacing=1.0)
@@ -90,18 +129,20 @@ def fig_aging(S, out):
     g = lambda k: np.array([np.nan if r[k] is None else r[k] for r in rows], float)
     h = lambda k, v: np.array([np.nan if r[k][v] is None else r[k][v] for r in rows], float)
     fig, ax = plt.subplots(2, 1, figsize=(W, 3.3), sharex=True, gridspec_kw=dict(hspace=0.18))
-    ax[0].plot(soh, g('r_pulse_eis_mohm'), color=MUTED, lw=1.6, label='reference EIS')
-    ax[0].errorbar(soh, g('r_pulse_mohm'), yerr=2 * g('r_pulse_sd_mohm'), fmt='o', color=BLUE, ms=3.5, mec='white', mew=0.4, elinewidth=0.6, label='proposed')
+    ax[0].plot(soh, g('r_pulse_eis_mohm'), color=MUTED, lw=1.6, label='Reference EIS')
+    ax[0].errorbar(soh, g('r_pulse_mohm'), yerr=2 * g('r_pulse_sd_mohm'), fmt='o', color=BLUE, ms=3.5, mec='white', mew=0.4, elinewidth=0.6, label='Pseudo-EIS')
     ax[0].set_ylabel('$R_{10}$ (m$\\Omega$)')
     ax[0].legend(loc='best')
-    ax[1].plot(soh, h('rmse_bol_model_mv', 'wltc'), 's-', color=ORANGE, label='beginning-of-life model')
-    ax[1].plot(soh, h('rmse_reidentified_mv', 'wltc'), 'o-', color=BLUE, label='re-identified')
+    ax[1].plot(soh, h('rmse_bol_model_mv', 'wltc'), 's-', color=ORANGE, label='Beginning-of-life model')
+    ax[1].plot(soh, h('rmse_reidentified_mv', 'wltc'), 'o-', color=BLUE, label='Re-identified')
     ax[1].set_ylabel('Voltage error, WLTC (mV)')
     ax[1].set_xlabel('State of health (%)')
     ax[1].legend(loc='best')
     ax[1].set_xticks(soh)
     ax[1].set_xticklabels([f'{x:g}' for x in soh])
     ax[1].invert_xaxis()
+    top_tick(ax[0])
+    top_tick(ax[1])
     fig.savefig(out / 'fig_aging.pdf')
     plt.close(fig)
 
@@ -111,14 +152,15 @@ def fig_amplitude(S, out):
         return
     a = np.array([r['load_a'] for r in rows])
     fig, ax = plt.subplots(figsize=(W, 1.7))
-    ax.loglog(a, [100 * r['mean_rel_err'] for r in rows], 'o-', color=BLUE, label='with measurement noise')
-    ax.loglog(a, [100 * r['noise_free_mean_rel_err'] for r in rows], 's--', color=ORANGE, label='noise-free')
+    ax.loglog(a, [100 * r['mean_rel_err'] for r in rows], 'o-', color=BLUE, label='With measurement noise')
+    ax.loglog(a, [100 * r['noise_free_mean_rel_err'] for r in rows], 's--', color=ORANGE, label='Noise-free')
     ax.set_xlabel('Load current $I_0$ (A)')
     ax.set_ylabel('Mean impedance error (%)')
-    ax.legend(loc='best')
+    ax.legend(loc='lower right')
     ax.set_xticks(a)
     ax.set_xticklabels([f'{x:g}' for x in a])
     ax.minorticks_off()
+    plain_log_y(ax)
     fig.savefig(out / 'fig_amplitude.pdf')
     plt.close(fig)
 
@@ -142,8 +184,8 @@ def fig_wltc(R, tasks, cfg, out):
     Lp = N * cfg['kappa']
     P = b0['periods']
     lm = sq.n_lines(N)
-    fig, ax = plt.subplots(1, 2, figsize=(7.1, 1.75), gridspec_kw=dict(wspace=0.28))
-    for r, col, lab, st in ((rc, BLUE, 'constant load', '-'), (rw, ORANGE, 'WLTC load', '--')):
+    fig, ax = plt.subplots(1, 2, figsize=(7.1, 1.75), gridspec_kw=dict(wspace=0.42))
+    for r, col, lab, st in ((rc, BLUE, 'Constant load', '-'), (rw, ORANGE, 'WLTC load', '--')):
         key = 'i_slow'
         l, p = line_power(r['_z'][key], Lp, P)
         sel = l <= lm
@@ -154,7 +196,7 @@ def fig_wltc(R, tasks, cfg, out):
     ax[0].set_xlabel('Frequency (Hz)')
     ax[0].set_ylabel('Input power per line (A$^2$)')
     ax[0].legend(loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=3, handlelength=1.5, columnspacing=0.8, borderaxespad=0.2)
-    for r, col, lab, mkr in ((rc, BLUE, 'constant load', 'o'), (rw, ORANGE, 'WLTC load', 's')):
+    for r, col, lab, mkr in ((rc, BLUE, 'Constant load', 'o'), (rw, ORANGE, 'WLTC load', 's')):
         z = r['_z']
         e = 100 * np.abs(z['z'] - z['zref']) / np.abs(z['zref'])
         o = np.argsort(z['f'])
@@ -167,6 +209,8 @@ def fig_wltc(R, tasks, cfg, out):
         ax[1].loglog(c, med, mkr + '-', color=col, ms=3, mec='white', mew=0.4, label=lab)
     ax[1].set_xlabel('Frequency (Hz)')
     ax[1].set_ylabel('Median impedance error (%)')
+    plain_log_y(ax[1])
+    decade_top_y(ax[0])
     fig.savefig(out / 'fig_wltc.pdf')
     plt.close(fig)
 

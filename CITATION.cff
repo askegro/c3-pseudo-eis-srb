@@ -31,6 +31,8 @@ abstract: >-
   (Chen2020 parameters scaled to 60 Ah), the stored simulation results, and
   the scripts that regenerate every reported number, table and figure.
 
+doi: 10.5281/zenodo.23111635
+
 repository-code: "https://github.com/askegro/c3-pseudo-eis-srb"
 
 preferred-citation:
