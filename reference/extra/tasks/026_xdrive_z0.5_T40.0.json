@@ -1,0 +1,153 @@
+{
+ "task": {
+  "kind": "xdrive",
+  "group": "xdrive",
+  "soc": 0.5,
+  "temp_c": 40.0,
+  "id": 26,
+  "name": "026_xdrive_z0.5_T40.0"
+ },
+ "capacity_ah": 61.83900618673861,
+ "reference_r10": {
+  "decade": 0.0020908997237926016,
+  "half_decade": 0.0020750489063964856
+ },
+ "batch": {
+  "forward_1000s": {
+   "decade": {
+    "r10": {
+     "mean": 0.0020240575973864035,
+     "bias_pct": -3.1968116713390633,
+     "sd_emp": 5.694964038298167e-07,
+     "sd_emp_pct": 0.02723690655029737,
+     "sd_pred_mean": 9.25149195284751e-07,
+     "sd_ratio_pred_over_emp": 1.6245040162908815,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 3.1969271186316948,
+     "ref": 0.0020908997237926016
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0016514210315426523,
+     "pulse_two_c": 0.04759540916053814,
+     "wltc": 0.0018804213752064492
+    },
+    "mean_active_constraints": 4.0
+   },
+   "half_decade": {
+    "r10": {
+     "mean": 0.002023433593077035,
+     "bias_pct": -2.4874263522340554,
+     "sd_emp": 6.537960134617957e-07,
+     "sd_emp_pct": 0.031507499001417416,
+     "sd_pred_mean": 9.01102111690434e-07,
+     "sd_ratio_pred_over_emp": 1.378261863236475,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 2.4876248946875497,
+     "ref": 0.0020750489063964856
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0018378255602716398,
+     "pulse_two_c": 0.05069952205717297,
+     "wltc": 0.0018956472086570162
+    },
+    "mean_active_constraints": 9.835
+   },
+   "complete": true,
+   "duration_s": 1000.0,
+   "load_rms_a": 12.30417606736341,
+   "load_mean_a": 4.137203222372889
+  },
+  "reversed_2100s": {
+   "decade": {
+    "r10": {
+     "mean": 0.0019342931483626112,
+     "bias_pct": -7.489913248729493,
+     "sd_emp": 2.1047824598211033e-07,
+     "sd_emp_pct": 0.010066395991498436,
+     "sd_pred_mean": 1.7605067036136374e-06,
+     "sd_ratio_pred_over_emp": 8.364316679849528,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 7.489919979489792,
+     "ref": 0.0020908997237926016
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0021844732054222275,
+     "pulse_two_c": 0.0340018636140259,
+     "wltc": 0.0015011687386478887
+    },
+    "mean_active_constraints": 4.0
+   },
+   "half_decade": {
+    "r10": {
+     "mean": 0.0019342752879848968,
+     "bias_pct": -6.784110869755602,
+     "sd_emp": 1.7657787640553585e-07,
+     "sd_emp_pct": 0.008509576611000446,
+     "sd_pred_mean": 1.7603793110189023e-06,
+     "sd_ratio_pred_over_emp": 9.969421690041987,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 6.784116180016793,
+     "ref": 0.0020750489063964856
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0021846692405004973,
+     "pulse_two_c": 0.034002904845481165,
+     "wltc": 0.0015013034083140484
+    },
+    "mean_active_constraints": 12.0
+   },
+   "complete": true,
+   "duration_s": 2100.0,
+   "load_rms_a": 23.175537114065236,
+   "load_mean_a": 12.121007325187325
+  }
+ },
+ "prbs": {
+  "runs": 300,
+  "r10_decade": {
+   "mean": 0.0019822671951961342,
+   "bias_pct": -5.195492034377577,
+   "sd_emp": 1.730934242984884e-06,
+   "sd_emp_pct": 0.0827841824879679,
+   "sd_pred_mean": 7.126734979399132e-06,
+   "sd_ratio_pred_over_emp": 4.117276556450544,
+   "coverage_2sd_vs_ref": 0.0,
+   "rmse_to_ref_pct": 5.196149329655716,
+   "ref": 0.0020908997237926016
+  },
+  "r10_half_decade": {
+   "mean": 0.0019644628418587144,
+   "bias_pct": -5.329323284713038,
+   "sd_emp": 1.935507259381548e-06,
+   "sd_emp_pct": 0.0932752598464166,
+   "sd_pred_mean": 7.412069402488247e-06,
+   "sd_ratio_pred_over_emp": 3.82952291527784,
+   "coverage_2sd_vs_ref": 0.0,
+   "rmse_to_ref_pct": 5.330136766178743,
+   "ref": 0.0020750489063964856
+  },
+  "r_tot_decade_sd_ratio": 6.043288467038985,
+  "r_tot_decade_sd_emp": 1.496384939660113e-05,
+  "r_tot_decade_sd_pred": 9.043085848098789e-05,
+  "validation_rmse_v_decade": {
+   "pulse_load": 0.005374197289558269,
+   "pulse_two_c": 0.06639229546127212,
+   "wltc": 0.006141889702631718
+  },
+  "validation_rmse_v_half_decade": {
+   "pulse_load": 0.0012107545021812285,
+   "pulse_two_c": 0.03537486233227391,
+   "wltc": 0.0019449048765794873
+  },
+  "duration_s": 2099.961257142857
+ },
+ "status": "complete",
+ "seconds": 1199.2114102840424,
+ "backend": "pybamm",
+ "versions": {
+  "numpy": "2.5.3",
+  "python": "3.12.3",
+  "scipy": "1.18.1",
+  "pybamm": "26.9.0.0"
+ }
+}

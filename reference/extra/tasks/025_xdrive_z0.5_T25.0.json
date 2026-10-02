@@ -1,0 +1,153 @@
+{
+ "task": {
+  "kind": "xdrive",
+  "group": "xdrive",
+  "soc": 0.5,
+  "temp_c": 25.0,
+  "id": 25,
+  "name": "025_xdrive_z0.5_T25.0"
+ },
+ "capacity_ah": 61.83900618673861,
+ "reference_r10": {
+  "decade": 0.0029677631330808384,
+  "half_decade": 0.0029875987363012653
+ },
+ "batch": {
+  "forward_1000s": {
+   "decade": {
+    "r10": {
+     "mean": 0.0027959679904369316,
+     "bias_pct": -5.788708024874145,
+     "sd_emp": 6.234232533419732e-07,
+     "sd_emp_pct": 0.021006503059251794,
+     "sd_pred_mean": 1.9801293575512016e-06,
+     "sd_ratio_pred_over_emp": 3.1762199227192114,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 5.78874594917129,
+     "ref": 0.0029677631330808384
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0016354199938455965,
+     "pulse_two_c": 0.09255278611342053,
+     "wltc": 0.0027329141549460832
+    },
+    "mean_active_constraints": 3.965
+   },
+   "half_decade": {
+    "r10": {
+     "mean": 0.0027948604602762122,
+     "bias_pct": -6.451277197408,
+     "sd_emp": 5.839183744279367e-07,
+     "sd_emp_pct": 0.019544738968220503,
+     "sd_pred_mean": 1.9997002707056276e-06,
+     "sd_ratio_pred_over_emp": 3.4246229580713723,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 6.451306655603467,
+     "ref": 0.0029875987363012653
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.001788921593063305,
+     "pulse_two_c": 0.09494085597767654,
+     "wltc": 0.002792605447391281
+    },
+    "mean_active_constraints": 9.04
+   },
+   "complete": true,
+   "duration_s": 1000.0,
+   "load_rms_a": 12.30417606736341,
+   "load_mean_a": 4.137203222372889
+  },
+  "reversed_2100s": {
+   "decade": {
+    "r10": {
+     "mean": 0.002523319361668555,
+     "bias_pct": -14.97571576579651,
+     "sd_emp": 1.9465467462365877e-07,
+     "sd_emp_pct": 0.006558969361600887,
+     "sd_pred_mean": 2.4671211401895216e-06,
+     "sd_ratio_pred_over_emp": 12.674348278351914,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 14.975717194942767,
+     "ref": 0.0029677631330808384
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.005348767400609677,
+     "pulse_two_c": 0.060440157751236505,
+     "wltc": 0.004132864439731504
+    },
+    "mean_active_constraints": 2.995
+   },
+   "half_decade": {
+    "r10": {
+     "mean": 0.0025233443797199303,
+     "bias_pct": -15.539381207400547,
+     "sd_emp": 1.8719574559803253e-07,
+     "sd_emp_pct": 0.00626575929770898,
+     "sd_pred_mean": 2.473342498557415e-06,
+     "sd_ratio_pred_over_emp": 13.212599948016182,
+     "coverage_2sd_vs_ref": 0.0,
+     "rmse_to_ref_pct": 15.53938246431802,
+     "ref": 0.0029875987363012653
+    },
+    "validation_rmse_v_mean": {
+     "pulse_load": 0.0053502390325249624,
+     "pulse_two_c": 0.06043533488188791,
+     "wltc": 0.004132737221537163
+    },
+    "mean_active_constraints": 10.0
+   },
+   "complete": true,
+   "duration_s": 2100.0,
+   "load_rms_a": 23.175537114065236,
+   "load_mean_a": 12.121007325187325
+  }
+ },
+ "prbs": {
+  "runs": 300,
+  "r10_decade": {
+   "mean": 0.002594104697184807,
+   "bias_pct": -12.590574757498793,
+   "sd_emp": 3.679422347942375e-06,
+   "sd_emp_pct": 0.123979650091642,
+   "sd_pred_mean": 1.93291788389724e-05,
+   "sd_ratio_pred_over_emp": 5.253318866691604,
+   "coverage_2sd_vs_ref": 0.0,
+   "rmse_to_ref_pct": 12.591183123173558,
+   "ref": 0.0029677631330808384
+  },
+  "r10_half_decade": {
+   "mean": 0.0026558988876834544,
+   "bias_pct": -11.102556865734423,
+   "sd_emp": 2.4307020955601064e-06,
+   "sd_emp_pct": 0.0813597243172417,
+   "sd_pred_mean": 1.987637555973949e-05,
+   "sd_ratio_pred_over_emp": 8.17721579129152,
+   "coverage_2sd_vs_ref": 0.0,
+   "rmse_to_ref_pct": 11.102853970800696,
+   "ref": 0.0029875987363012653
+  },
+  "r_tot_decade_sd_ratio": 10.913265548958355,
+  "r_tot_decade_sd_emp": 1.8601895420634263e-05,
+  "r_tot_decade_sd_pred": 0.00020300742443933408,
+  "validation_rmse_v_decade": {
+   "pulse_load": 0.006652501271461231,
+   "pulse_two_c": 0.09875815197981265,
+   "wltc": 0.007093634139453837
+  },
+  "validation_rmse_v_half_decade": {
+   "pulse_load": 0.004060086188883627,
+   "pulse_two_c": 0.09262740300260056,
+   "wltc": 0.0042718780172007476
+  },
+  "duration_s": 2099.961257142857
+ },
+ "status": "complete",
+ "seconds": 1184.0019810199738,
+ "backend": "pybamm",
+ "versions": {
+  "numpy": "2.5.3",
+  "python": "3.12.3",
+  "scipy": "1.18.1",
+  "pybamm": "26.9.0.0"
+ }
+}

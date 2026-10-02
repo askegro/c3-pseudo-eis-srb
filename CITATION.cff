@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+
+message: "If you use this software, please cite both the software and the associated paper."
+
+type: software
+
+title: "Simulation and post-processing code for 'Pseudo-Random Switching of Cell Groups for On-Board Impedance Identification in Self-Reconfigurable Batteries'"
+
+authors:
+  - family-names: Škegro
+    given-names: Albert
+    affiliation: Chalmers University of Technology
+    orcid: "https://orcid.org/0000-0003-3819-2215"
+
+keywords:
+  - battery impedance identification
+  - pseudo-random binary sequence
+  - self-reconfigurable battery
+  - equivalent-circuit model
+  - battery management system
+
+license: MIT
+version: 1.0.0
+date-released: "2026-10-02"
+
+abstract: >-
+  Python simulation and post-processing code for impedance identification of
+  cell groups in a self-reconfigurable battery by pseudo-random switching
+  (pseudo-EIS). Contains the cross-spectral estimator, the convex
+  equivalent-circuit fit, a PyBaMM Doyle-Fuller-Newman truth model
+  (Chen2020 parameters scaled to 60 Ah), the stored simulation results, and
+  the scripts that regenerate every reported number, table and figure.
+
+repository-code: "https://github.com/askegro/c3-pseudo-eis-srb"
+
+preferred-citation:
+  type: conference-paper
+
+  title: "Pseudo-Random Switching of Cell Groups for On-Board Impedance Identification in Self-Reconfigurable Batteries"
+
+  authors:
+    - family-names: Škegro
+      given-names: Albert
+      affiliation: Chalmers University of Technology
+
+    - family-names: Laurin
+      given-names: Antoine
+      affiliation: "CEA, Université Grenoble Alpes"
+
+    - family-names: Heiries
+      given-names: Vincent
+      affiliation: "CEA, Université Grenoble Alpes"
+
+    - family-names: Thomas
+      given-names: Rémy
+      affiliation: "CEA, Université Grenoble Alpes"
+
+    - family-names: Zou
+      given-names: Changfu
+      affiliation: Chalmers University of Technology
+
+  year: 2026
+
+  notes: "Submitted to the 2027 American Control Conference (ACC)."

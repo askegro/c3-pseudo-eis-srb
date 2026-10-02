@@ -1,0 +1,204 @@
+{
+ "backend": "pybamm",
+ "pybamm": {
+  "model": "DFN",
+  "parameter_set": "Chen2020",
+  "capacity_ah": 60.0,
+  "rtol": 1e-07,
+  "atol": 1e-09,
+  "sei_fresh_m": 5e-09,
+  "sei_growth_m_per_soh": 3e-07
+ },
+ "sequence_degree": 10,
+ "bands": [
+  {
+   "name": "slow",
+   "fc": 2.0,
+   "periods": 4,
+   "os_sim": 80,
+   "l_min": 3
+  },
+  {
+   "name": "mid",
+   "fc": 154.0,
+   "periods": 8,
+   "os_sim": 40,
+   "l_min": 5
+  },
+  {
+   "name": "fast",
+   "fc": 10000.0,
+   "periods": 8,
+   "os_sim": 20,
+   "l_min": 5
+  }
+ ],
+ "kappa": 4,
+ "load_current_a": 20.0,
+ "noise": {
+  "voltage_sd_v": 0.0005,
+  "current_sd_a": 0.02
+ },
+ "bms": {
+  "soc_error_sd": 0.01,
+  "capacity_error": 0.03
+ },
+ "fit": {
+  "taus_s": [
+   0.001,
+   0.01,
+   0.1,
+   1.0,
+   10.0,
+   100.0
+  ],
+  "taus_dense_s": [
+   3.16228e-05,
+   0.0001,
+   0.000316228,
+   0.001,
+   0.00316228,
+   0.01,
+   0.0316228,
+   0.1,
+   0.316228,
+   1.0,
+   3.16228,
+   10.0,
+   31.6228,
+   100.0
+  ],
+  "pool": 4,
+  "free_tau_starts": 5,
+  "pulse_resistance_s": 10.0
+ },
+ "pulse_test": {
+  "current_a": 60.0,
+  "discharge_s": 10.0,
+  "rest_s": 40.0,
+  "regen_fraction": 0.75,
+  "dt_s": 0.01
+ },
+ "validation": {
+  "pulse_s": 120.0,
+  "rest_s": 60.0,
+  "dt_s": 0.1,
+  "pulses": {
+   "load": "load_current_a",
+   "two_c": 120.0
+  },
+  "wltc_window_s": [
+   1000.0,
+   1400.0
+  ]
+ },
+ "monte_carlo_runs": 500,
+ "seed": 20270707,
+ "grid": {
+  "soc": [
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9
+  ],
+  "temp_c": [
+   10.0,
+   25.0,
+   40.0
+  ]
+ },
+ "nominal": {
+  "soc": 0.5,
+  "temp_c": 25.0
+ },
+ "aging": {
+  "soc": 0.7,
+  "temp_c": 40.0,
+  "soh": [
+   0.95,
+   0.9,
+   0.85,
+   0.8
+  ]
+ },
+ "amplitudes_a": [
+  5.0,
+  10.0,
+  40.0,
+  60.0
+ ],
+ "drive": {
+  "profile": "data/wltc_power_pybamm.csv",
+  "profile_dt_s": 0.1,
+  "band_start_s": {
+   "slow": 0.0,
+   "mid": 1000.0,
+   "fast": 1500.0
+  },
+  "rls": {
+   "order": 2,
+   "forgetting": 0.9995
+  }
+ },
+ "pack": {
+  "cases": {
+   "matched": {
+    "dsoc": 0.0,
+    "area_scale_q": 1.0
+   },
+   "soc_mismatch": {
+    "dsoc": 0.02,
+    "area_scale_q": 1.0
+   },
+   "resistance_mismatch": {
+    "dsoc": 0.0,
+    "area_scale_q": 0.9
+   },
+   "both": {
+    "dsoc": 0.02,
+    "area_scale_q": 0.9
+   }
+  }
+ },
+ "extra": {
+  "mc_prbs": 300,
+  "mc_pulse": 200,
+  "reversed_train_s": 2100.0,
+  "drive_temps_c": [
+   10.0,
+   25.0,
+   40.0
+  ],
+  "pulse_protocols": [
+   {
+    "name": "p20_single",
+    "amp_a": 20.0,
+    "cycles": 1,
+    "dt_s": 0.01
+   },
+   {
+    "name": "p60_single",
+    "amp_a": 60.0,
+    "cycles": 1,
+    "dt_s": 0.01
+   },
+   {
+    "name": "p20_x21",
+    "amp_a": 20.0,
+    "cycles": 21,
+    "dt_s": 0.05
+   },
+   {
+    "name": "p60_x21",
+    "amp_a": 60.0,
+    "cycles": 21,
+    "dt_s": 0.05
+   }
+  ],
+  "seed": 20271002
+ }
+}

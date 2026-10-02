@@ -1,0 +1,121 @@
+{
+ "task": {
+  "kind": "pack",
+  "group": "pack",
+  "case": "soc_mismatch",
+  "soc": 0.5,
+  "temp_c": 25.0,
+  "id": 35,
+  "name": "035_pack_z0.5_T25.0_soc_mismatch"
+ },
+ "case": {
+  "dsoc": 0.02,
+  "area_scale_q": 1.0
+ },
+ "bands": {
+  "slow": {
+   "overpotential_min_v": 0.019570823740586274,
+   "overpotential_max_v": 0.07473096288507008,
+   "overpotential_pp_v": 0.05516013914448381,
+   "overpotential_bound_v": [
+    0.0042421936283386225,
+    0.08076358959584264
+   ],
+   "overpotential_bound_pp_v": 0.07652139596750401,
+   "within_bound": true,
+   "excess_below_v": 0.0,
+   "excess_above_v": 0.0,
+   "ocv_difference_v": 0.01817075575868543,
+   "ocv_drift_v": 0.10356164901317655,
+   "v_ins_pp_v": 0.15471289141477484,
+   "bound_pp_v": 0.09469215172618944,
+   "single_group_step_v": 3.7059353522393006,
+   "duty_p": 0.5004887585532747,
+   "charge_p_ah": 5.688888888888889,
+   "charge_q_ah": 5.677777777777778
+  },
+  "mid": {
+   "overpotential_min_v": 0.006636431477910154,
+   "overpotential_max_v": 0.05933987706155053,
+   "overpotential_pp_v": 0.052703445583640374,
+   "overpotential_bound_v": [
+    0.0042421936283386225,
+    0.08076358959584264
+   ],
+   "overpotential_bound_pp_v": 0.07652139596750401,
+   "within_bound": true,
+   "excess_below_v": 0.0,
+   "excess_above_v": 0.0,
+   "ocv_difference_v": 0.01935360967813171,
+   "ocv_drift_v": 0.021662848238362287,
+   "v_ins_pp_v": 0.07434998326532094,
+   "bound_pp_v": 0.09587500564563572,
+   "single_group_step_v": 3.718441058168081,
+   "duty_p": 0.5004887585532747,
+   "charge_p_ah": 0.14776334776334776,
+   "charge_q_ah": 0.14747474747474745
+  },
+  "fast": {
+   "overpotential_min_v": 0.00427027847859307,
+   "overpotential_max_v": 0.03299758873701686,
+   "overpotential_pp_v": 0.02872731025842379,
+   "overpotential_bound_v": [
+    0.0042421936283386225,
+    0.08076358959584264
+   ],
+   "overpotential_bound_pp_v": 0.07652139596750401,
+   "within_bound": true,
+   "excess_below_v": 0.0,
+   "excess_above_v": 0.0,
+   "ocv_difference_v": 0.019361601471013845,
+   "ocv_drift_v": 0.01939709579174087,
+   "v_ins_pp_v": 0.04812003399969722,
+   "bound_pp_v": 0.09588299743851786,
+   "single_group_step_v": 3.725773121499601,
+   "duty_p": 0.5004887585532747,
+   "charge_p_ah": 0.0022755555555555554,
+   "charge_q_ah": 0.0022711111111111113
+  }
+ },
+ "group_p": {
+  "theta": [
+   0.0002917584939389879,
+   0.00025741245212698445,
+   0.0015625837439059193,
+   0.0002863510010934323,
+   0.0,
+   0.00020485565505742152,
+   0.0022987343816982743
+  ],
+  "r_tot": 0.00490169572782102,
+  "r_tot_sd": 3.6291646502420373e-05,
+  "r_pulse_dense": 0.0027769698344809112,
+  "mean_rel_err": 0.04245861743024223,
+  "capacity_ah": 61.83900618673861
+ },
+ "group_q": {
+  "theta": [
+   0.00029245467174487754,
+   0.000256357956386791,
+   0.0015639545843959936,
+   0.00028291832142721005,
+   0.0,
+   0.0002510909727603181,
+   0.0022822908514220147
+  ],
+  "r_tot": 0.0049290673581372044,
+  "r_tot_sd": 2.791748061227898e-05,
+  "r_pulse_dense": 0.0027869493609627197,
+  "mean_rel_err": 0.042639273858596935,
+  "capacity_ah": 61.83900618673861
+ },
+ "status": "complete",
+ "seconds": 648.9756889343262,
+ "backend": "pybamm",
+ "versions": {
+  "numpy": "2.5.3",
+  "python": "3.12.3",
+  "scipy": "1.18.1",
+  "pybamm": "26.9.0.0"
+ }
+}
